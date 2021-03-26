@@ -1,0 +1,19 @@
+00:00 || Getting Started !! Windows !
+
+05:36 || Getting Started !! Mac ! Making Git Repo and adding README.md !!
+
+09:43 || Begin Creating Express Application !! Main Structure !!
+
+17:14 || Adding Routes
+
+27:35 || Adding more Views !! (contact.handlebars)
+
+35:44 || Uploading Files to Server !!
+
+40:28 || Handle Cookies !!
+
+43:14 || Sessions !!
+
+48:08 || Read Files !!
+
+49:57 || Write to Files !!

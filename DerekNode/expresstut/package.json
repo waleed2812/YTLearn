@@ -1,0 +1,30 @@
+{
+  "name": "nodejs_derek",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A Simple Repository to store the codes I do while Learning Nodejs from Derek Banas.",
+  "main": "expresstut.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waleedbutt98/NodejsDerekBanas.git"
+  },
+  "author": "Waleed Butt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/waleedbutt98/NodejsDerekBanas/issues"
+  },
+  "homepage": "https://github.com/waleedbutt98/NodejsDerekBanas#readme",
+  "keywords": [
+    "nd"
+  ],
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.1",
+    "formidable": "^1.2.2"
+  }
+}

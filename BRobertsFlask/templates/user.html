@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+    {% if user %}
+        <title>{{user}}</title>
+    {% else %}
+        <title>No Logged in</title>
+    {% endif %}
+</head>
+<body>
+{% if user %}
+    <h2>{{user}}</h2>
+{% else %}
+    <h2>No Logged in</h2>
+{% endif %}
+</body>
+</html>
