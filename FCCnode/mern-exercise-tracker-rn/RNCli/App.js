@@ -13,19 +13,16 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
+import ExercisesList from './screen-components/exercises-list.component';
+import EditExercises from './screen-components/edit-exercise.component';
+import CreateUser from './screen-components/create-user.component';
+import CreateExcercise from './screen-components/create-exercise.component';
+
 import Colors from './constants/Colors';
 import styles from './constants/style';
 
 // Drawer Object for Drawer Screens
 const Drawer = createDrawerNavigator();
-
-const Screen = ({navigation}) => {
-  return(
-    <View style={styles.container}>
-      <Text style={styles.text}>Screen 1</Text>
-    </View>
-    );
-}
 
 // Drawer Navigator for Countries and World
 const MyDrawer = () => {
@@ -43,7 +40,7 @@ const MyDrawer = () => {
       >
       <Drawer.Screen
         name={'Excercises'}
-        component={Screen}
+        component={ExercisesList}
         // options={{
         //   drawerIcon: ({color}) => (
         //     <Ionicons name={'earth'} size={20} color={color} />
@@ -52,7 +49,7 @@ const MyDrawer = () => {
       />
       <Drawer.Screen
         name={'Create Excercises'}
-        component={Screen}
+        component={CreateExcercise}
         // options={{
         //   drawerIcon: ({color}) => (
         //     <Ionicons name={'flag'} size={20} color={color} />
@@ -61,7 +58,7 @@ const MyDrawer = () => {
       />
       <Drawer.Screen
         name={'Create User'}
-        component={Screen}
+        component={CreateUser}
         // options={{
         //   drawerIcon: ({color}) => (
         //     <Ionicons name={'heart'} size={20} color={color} />
