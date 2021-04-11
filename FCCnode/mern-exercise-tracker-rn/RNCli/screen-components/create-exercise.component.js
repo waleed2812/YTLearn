@@ -1,43 +1,140 @@
 import React, { useState } from 'react';
 import styles from '../constants/style';
-import {createStackNavigator} from '@react-navigation/stack';
+import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import DropDownPicker from 'react-native-dropdown-picker';
+import DatePicker from 'react-native-date-picker'
 
 import {
+  ActivityIndicator,
   Text,
+  TextInput,
   View,
 } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const Form = ({navigation}) => {
+const CreateExercises = ({navigation, route}) => {
+
+  const [username, setUsername] = useState('');
+  const [description, setDescription] = useState('');
+  const [duration, setDuration] = useState(0);
+  const [date, setDate] = useState(new Date());
+  const [users, setUsers] = useState();
+  const [first, setFirst] = useState(true);
+
+
+  React.useEffect(() => {
+
+    navigation.setOptions({
+      headerRight: () => (
+        <Icon 
+          name="refresh" 
+          size={30} 
+          color="black"
+          style={{ paddingRight: 10 }}
+          onPress={() => setFirst(true)}
+        />
+      ),
+    });
+
+    if (first){
+    
+    
+      axios.get('http://192.168.1.73:5000/users/')
+        .then(response => {
+          if (response.data.length > 0) {
+            setUsers(response.data.map(user => ({label: user.username, value: user.username})));
+            setFirst(false);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+    }
+  })
+
+  // Change input to numbers
+  const updateDuration = (...args) => {
+    // Input field text
+    let text = args[0] || '';
+
+    // If user is trying to empty field
+    if (text.length <= 0) {
+      
+      // Update Final Price
+      setDuration('');
+
+      return;
+    }
+
+    // Checking if the value is float
+    // If it is a valid float update it
+    // Other wise leave it
+    if (!new RegExp(/^[-+]?\d*\.?\d*$/).test(text)) {
+      return;
+    }
+
+    setDuration(text + '');
+    
+  };
+
+
+  const onSubmit = () => {
+    const exercise = {
+      username: username,
+      description: description,
+      duration: duration,
+      date: date
+    }
+
+    axios.post('http://192.168.1.73:5000/exercises/add/', exercise)
+      .then(res => navigation.navigate('Excercises'))
+      .catch(err => console.error(err));
+
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Create Excercise</Text>
+      {
+        first ? <ActivityIndicator color='black' size='large' />:
+      
+        <View style={styles.formContainer}>
+          <Text style={styles.formLabel}>Username: </Text>
+          <DropDownPicker
+            items={users}
+            defaultValue={username}
+            containerStyle={{height: 40, width: '100%'}}
+            style={{backgroundColor: '#fafafa', width: '100%'}}
+            itemStyle={{
+                justifyContent: 'flex-start'
+            }}
+            dropDownStyle={{backgroundColor: '#fafafa'}}
+            onChangeItem={item => setUsername(item.value)}
+          />
+          <Text style={styles.formLabel}>Description: </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setDescription(text)}
+            value={description}
+            placeholder="Update Description"
+          />
+          <Text style={styles.formLabel}>Duration: </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={updateDuration}
+            value={duration.toString()}
+            placeholder="Update Duration"
+            keyboardType='numeric'
+          />
+          <Text style={styles.formLabel}>Date: </Text>
+          <DatePicker date={date} onDateChange={setDate} style={{marginLeft: 10, alignSelf: 'center'}} mode={'date'}/>
+          <TouchableOpacity style={styles.button} onPress={onSubmit}>
+            <Text style={styles.button_text}>Submit</Text>
+          </TouchableOpacity>
+        </View>
+      }
     </View>
-  );
-}
-
-const Stack = createStackNavigator();
-
-const CreateExcercise = () => {
-  return(
-    <Stack.Navigator initialRouteName="List">
-      <Stack.Screen
-        name={'Create Excercise'}
-        component={Form}
-        options={ ({navigation}) => ({
-          headerLeft: () => (
-            <Icon 
-              name="bars" 
-              size={30} 
-              color="black"
-              style={{ paddingLeft: 10 }}
-              onPress={navigation.toggleDrawer}
-            />
-          ),
-        })}
-      />
-    </Stack.Navigator>
   );
 };
 
-export default CreateExcercise;
+export default CreateExercises;
