@@ -3,6 +3,7 @@ import styles from '../constants/style';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DropDownPicker from 'react-native-dropdown-picker';
+import DatePicker from 'react-native-date-picker'
 
 import {
   ActivityIndicator,
@@ -10,6 +11,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const EditExercises = ({navigation, route}) => {
 
@@ -87,6 +89,21 @@ const EditExercises = ({navigation, route}) => {
     
   };
 
+
+  const onSubmit = () => {
+    const exercise = {
+      username: username,
+      description: description,
+      duration: duration,
+      date: date
+    }
+
+    axios.post('http://192.168.1.73:5000/exercises/update/' + route.params.id, exercise)
+      .then(res => navigation.goBack())
+      .catch(err => console.error(err));
+
+  }
+
   return (
     <View style={styles.container}>
       {
@@ -121,7 +138,10 @@ const EditExercises = ({navigation, route}) => {
             keyboardType='numeric'
           />
           <Text style={styles.formLabel}>Date: </Text>
-          
+          <DatePicker date={date} onDateChange={setDate} style={{marginLeft: 10, alignSelf: 'center'}} mode={'date'}/>
+          <TouchableOpacity style={styles.button} onPress={onSubmit}>
+            <Text style={styles.button_text}>Submit</Text>
+          </TouchableOpacity>
         </View>
       }
     </View>

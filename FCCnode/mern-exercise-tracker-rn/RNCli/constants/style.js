@@ -123,4 +123,20 @@ export default StyleSheet.create({
     margin: 12,
     borderWidth: 1,
   },
+  button: {
+    width: 120,
+    height: 60,
+    backgroundColor: 'blue',
+    marginVertical: 10,
+    padding: 10,
+    borderRadius: 10,
+    alignSelf: 'flex-end',
+    justifyContent:'center',
+    alignItems: 'center'
+  },
+  button_text : {
+    fontSize: 20,
+    textAlign: 'center',
+    color: 'white',
+  }
 });
