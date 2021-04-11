@@ -9,6 +9,7 @@ import axios from 'axios';
 import {
   Text,
   View,
+  FlatList,
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
@@ -19,19 +20,70 @@ const Stack = createStackNavigator();
 const List = ({navigation}) => {
 
   const [exercises, setExercises] = useState([]);
+  const [first, setFirst] = useState(true);
 
-  const renderItem = props => (
-    <View key={item._id} style={styles.flatlistItem}>
-      <View style={styles.flatlistItem}> 
-        <Text style={styles.flatlistTxt}>{item.username}</Text> 
+
+
+  React.useEffect(() => {
+
+    navigation.setOptions({
+      headerRight: () => (
+        <Icon 
+          name="refresh" 
+          size={30} 
+          color="black"
+          style={{ paddingRight: 10 }}
+          onPress={() => setFirst(true)}
+        />
+      ),
+    });
+
+    if (first){
+      axios.get('http://192.168.1.73:5000/exercises/')
+        .then(response => {
+          setExercises(response.data);
+          setFirst(false);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    }
+  });
+
+  const deleteExercise = (id) => {
+    axios.delete('http://192.168.1.73:5000/exercises/'+id)
+      .then(response => { console.log(response.data)});
+
+    setExercises(exercises.filter(el => el._id !== id))
+  }
+
+  const renderItem = ({item}) => {
+    return (
+      <View key={item._id} style={styles.flatlistItemContainer}>
+        <View style={styles.flatlistItem}> 
+          <Text style={styles.flatlistTxt}>{item.username}</Text>
+          <Text style={styles.flatlistTxt}>{item.description}</Text>
+          <Text style={styles.flatlistTxt}>{item.duration}</Text>
+          <Text style={styles.flatlistTxt}>{item.date.substring(0,10)}</Text>
+          <View style={styles.flatlistAction}>
+            <TouchableOpacity>
+              <Text style={styles.flatlistAnchor}>Edit</Text>
+            </TouchableOpacity>
+            <Text style={styles.flatlistTxt}>|</Text>
+            <TouchableOpacity onPress={() => deleteExercise(item._id)}>
+              <Text style={styles.flatlistAnchor}>Delete</Text>
+            </TouchableOpacity>
+          </View> 
+        </View>
       </View>
-    </View>
-  )
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       {
-        exercises.length === 0 ? <ActivityIndicator color='black' size='large' />:
+        first ? <ActivityIndicator color='black' size='large' />:
         <FlatList
           data={exercises}
           renderItem={renderItem}
@@ -45,6 +97,7 @@ const List = ({navigation}) => {
 };
 
 const ExercisesList = () => {
+
   return(
     <Stack.Navigator initialRouteName="List">
       <Stack.Screen

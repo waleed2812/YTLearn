@@ -94,7 +94,19 @@ export default StyleSheet.create({
 
   flatlistTxt: {
     fontSize: 20,
-    color: Colors.darker,
+    color: Colors.dark,
     paddingLeft: 10,
   },
+
+  flatlistAction: {
+    flexDirection: 'row',
+  },
+
+  flatlistAnchor: {
+    paddingLeft: 10,
+    fontSize: 20,
+    color: Colors.darker,
+    textDecorationLine: 'underline',
+  },
+
 });
