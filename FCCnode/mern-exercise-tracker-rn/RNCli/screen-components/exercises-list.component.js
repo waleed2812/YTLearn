@@ -10,15 +10,9 @@ import {
   Text,
   View,
   TouchableOpacity,
+  SafeAreaView,
+  ActivityIndicator,
 } from 'react-native';
-
-const renderItem = props => (
-  <View key={item._id} style={styles.flatlistItem}>
-    <View style={styles.flatlistItem}> 
-      <Text style={styles.flatlistTxt}>{item.username}</Text> 
-    </View>
-  </View>
-)
 
 const Stack = createStackNavigator();
 
@@ -26,12 +20,27 @@ const List = ({navigation}) => {
 
   const [exercises, setExercises] = useState([]);
 
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('Edit')}>
-        <Text style={styles.text}>Exercises List</Text>
-      </TouchableOpacity>
+  const renderItem = props => (
+    <View key={item._id} style={styles.flatlistItem}>
+      <View style={styles.flatlistItem}> 
+        <Text style={styles.flatlistTxt}>{item.username}</Text> 
+      </View>
     </View>
+  )
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {
+        exercises.length === 0 ? <ActivityIndicator color='black' size='large' />:
+        <FlatList
+          data={exercises}
+          renderItem={renderItem}
+          keyExtractor={(item) => item._id?.toString()}
+          extraData={{navigation}}
+          style={styles.flatlistContainer}
+        />
+      }
+    </SafeAreaView>
   );
 };
 
