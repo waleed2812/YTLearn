@@ -11,10 +11,8 @@ import {
 import 'react-native-gesture-handler';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
 
 import ExercisesList from './screen-components/exercises-list.component';
-import EditExercises from './screen-components/edit-exercise.component';
 import CreateUser from './screen-components/create-user.component';
 import CreateExcercise from './screen-components/create-exercise.component';
 
@@ -34,7 +32,7 @@ const MyDrawer = () => {
       screenOptions={{
         activeTintColor: Colors.darker,
         inactiveTintColor: Colors.dark,
-        headerTitle:'Excercise Tracker',
+        header: () => null,
         // labelStyle: styles.drawerItem,
       }}
       >
