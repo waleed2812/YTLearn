@@ -12,8 +12,9 @@ import {
   View,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import {createStackNavigator} from '@react-navigation/stack';
 
-const CreateExercises = ({navigation, route}) => {
+const Exercises = ({navigation, route}) => {
 
   const [username, setUsername] = useState('');
   const [description, setDescription] = useState('');
@@ -116,14 +117,14 @@ const CreateExercises = ({navigation, route}) => {
             style={styles.input}
             onChangeText={text => setDescription(text)}
             value={description}
-            placeholder="Update Description"
+            placeholder="Enter Description"
           />
           <Text style={styles.formLabel}>Duration: </Text>
           <TextInput
             style={styles.input}
             onChangeText={updateDuration}
             value={duration.toString()}
-            placeholder="Update Duration"
+            placeholder="Enter Duration"
             keyboardType='numeric'
           />
           <Text style={styles.formLabel}>Date: </Text>
@@ -134,6 +135,34 @@ const CreateExercises = ({navigation, route}) => {
         </View>
       }
     </View>
+  );
+};
+
+const Stack = createStackNavigator();
+
+const CreateExercises = () => {
+
+  return(
+    <Stack.Navigator initialRouteName="List">
+      <Stack.Screen
+        name={'Exercises'}
+        component={Exercises}
+        options={ ({navigation}) => ({
+
+          title: 'Exercise Tracker',
+
+          headerLeft: () => (
+            <Icon 
+              name="bars" 
+              size={30} 
+              color="black"
+              style={{ paddingLeft: 10 }}
+              onPress={navigation.toggleDrawer}
+            />
+          ),
+        })}
+      />
+    </Stack.Navigator>
   );
 };
 

@@ -2,9 +2,6 @@
 import * as React from 'react';
 import {
   StatusBar,
-  Text,
-  useColorScheme,
-  View,
   useWindowDimensions,
 } from 'react-native';
 

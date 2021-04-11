@@ -15,8 +15,6 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-const Stack = createStackNavigator();
-
 const List = ({navigation}) => {
 
   const [exercises, setExercises] = useState([]);
@@ -99,6 +97,8 @@ const List = ({navigation}) => {
     </SafeAreaView>
   );
 };
+
+const Stack = createStackNavigator();
 
 const ExercisesList = () => {
 

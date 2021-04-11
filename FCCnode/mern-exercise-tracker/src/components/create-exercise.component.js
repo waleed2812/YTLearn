@@ -17,7 +17,7 @@ const CreateExercise = () => {
     if (firstLoad){
 
     
-      axios.get('http://localhost:5000/users/')
+      axios.get('http://192.168.1.73:5000/users/')
         .then(response => {
           if (response.data.length > 0) {
 
@@ -46,7 +46,7 @@ const CreateExercise = () => {
 
     console.log(exercise);
 
-    axios.post('http://localhost:5000/exercises/add', exercise)
+    axios.post('http://192.168.1.73:5000/exercises/add', exercise)
       .then(res => console.log(res.data));
 
     window.location = '/';
