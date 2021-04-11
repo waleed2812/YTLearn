@@ -109,4 +109,18 @@ export default StyleSheet.create({
     textDecorationLine: 'underline',
   },
 
+  formContainer: {
+    flex: 1,
+    width: '95%',
+    paddingVertical: 10,
+  },
+  formLabel: {
+    fontSize: 20,
+    color: Colors.dark,
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+  },
 });

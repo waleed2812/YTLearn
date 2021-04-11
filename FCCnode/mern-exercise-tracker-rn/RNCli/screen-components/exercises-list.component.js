@@ -43,19 +43,23 @@ const List = ({navigation}) => {
         .then(response => {
           setExercises(response.data);
           setFirst(false);
-          console.log(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         })
     }
   });
 
   const deleteExercise = (id) => {
     axios.delete('http://192.168.1.73:5000/exercises/'+id)
-      .then(response => { console.log(response.data)});
+      .then(response => {  
+        setExercises(exercises.filter(el => el._id !== id));
+      })
+      .catch(err => console.error(err));
+  }
 
-    setExercises(exercises.filter(el => el._id !== id))
+  const editExercise = (id) => {
+    navigation.navigate('Edit', {id});
   }
 
   const renderItem = ({item}) => {
@@ -67,11 +71,11 @@ const List = ({navigation}) => {
           <Text style={styles.flatlistTxt}>{item.duration}</Text>
           <Text style={styles.flatlistTxt}>{item.date.substring(0,10)}</Text>
           <View style={styles.flatlistAction}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={editExercise.bind(this, item._id)}>
               <Text style={styles.flatlistAnchor}>Edit</Text>
             </TouchableOpacity>
             <Text style={styles.flatlistTxt}>|</Text>
-            <TouchableOpacity onPress={() => deleteExercise(item._id)}>
+            <TouchableOpacity onPress={deleteExercise.bind(this, item._id)}>
               <Text style={styles.flatlistAnchor}>Delete</Text>
             </TouchableOpacity>
           </View> 
