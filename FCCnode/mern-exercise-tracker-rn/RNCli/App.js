@@ -11,6 +11,8 @@ import {
 import 'react-native-gesture-handler';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import ExercisesList from './screen-components/exercises-list.component';
 import CreateUser from './screen-components/create-user.component';
@@ -27,41 +29,41 @@ const MyDrawer = () => {
   return (
     <Drawer.Navigator
       initialRouteName= 'Excercises'
-      // drawerStyle={styles.drawer}
+      drawerStyle={styles.drawer}
       drawerType={useWindowDimensions().width >= 768 ? 'permanent' : 'front'}
       screenOptions={{
         activeTintColor: Colors.darker,
         inactiveTintColor: Colors.dark,
         header: () => null,
-        // labelStyle: styles.drawerItem,
+        labelStyle: styles.drawerItem,
       }}
       >
       <Drawer.Screen
         name={'Excercises'}
         component={ExercisesList}
-        // options={{
-        //   drawerIcon: ({color}) => (
-        //     <Ionicons name={'earth'} size={20} color={color} />
-        //   ),
-        // }}
+        options={{
+          drawerIcon: ({color}) => (
+            <Icon name={'weight-lifter'} size={20} color={color} />
+          ),
+        }}
       />
       <Drawer.Screen
         name={'Create Excercises'}
         component={CreateExcercise}
-        // options={{
-        //   drawerIcon: ({color}) => (
-        //     <Ionicons name={'flag'} size={20} color={color} />
-        //   ),
-        // }}
+        options={{
+          drawerIcon: ({color}) => (
+            <Ionicons name={'add'} size={20} color={color} />
+          ),
+        }}
       />
       <Drawer.Screen
         name={'Create User'}
         component={CreateUser}
-        // options={{
-        //   drawerIcon: ({color}) => (
-        //     <Ionicons name={'heart'} size={20} color={color} />
-        //   ),
-        // }}
+        options={{
+          drawerIcon: ({color}) => (
+            <Ionicons name={'person'} size={20} color={color} />
+          ),
+        }}
       />
     </Drawer.Navigator>
   );

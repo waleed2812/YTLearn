@@ -4,11 +4,21 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EditExercises from './edit-exercise.component';
 
+import axios from 'axios';
+
 import {
   Text,
   View,
   TouchableOpacity,
 } from 'react-native';
+
+const renderItem = props => (
+  <View key={item._id} style={styles.flatlistItem}>
+    <View style={styles.flatlistItem}> 
+      <Text style={styles.flatlistTxt}>{item.username}</Text> 
+    </View>
+  </View>
+)
 
 const Stack = createStackNavigator();
 
